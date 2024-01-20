@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model item{
+  id Int @id @default(autoincrement())
+  unit String
+  name String
+  amount Int
+  price Int
+  tag String
+  status Boolean
+  purchasedHistory purchasedHistory[]
+}
+
+model purchasedHistory{
+  id Int @id @default(autoincrement())
+  amount Int
+  price Int
+  unitPrice Int
+  purchased String
+  itemId   Int    // Foreign key referencing the id in the item model
+  item     item   @relation(fields: [itemId], references: [id])
+}
