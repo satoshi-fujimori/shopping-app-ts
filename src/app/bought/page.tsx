@@ -5,7 +5,7 @@ import BoughtView from "@/components/BoughtView";
 
 //購入機会単位での履歴を表示
 export default async function BoughtPage() {
-  const getHistory = async () => {
+  const getHistory = async (): Promise<History[]> => {
     return await historyAction.getAllHistory();
   };
   const histories: History[] = await getHistory();
