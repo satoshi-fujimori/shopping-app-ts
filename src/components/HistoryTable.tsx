@@ -9,6 +9,7 @@ export default function HistoryTable({
   items: Item[];
   date: string;
 }) {
+  //ここのfilter関数がおかしい
   const filteredHistory: History[] = histories.filter(
     (history) => new Date(history.purchased).toLocaleDateString() === date
   );
