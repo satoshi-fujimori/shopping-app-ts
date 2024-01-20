@@ -11,7 +11,7 @@ export default async function BoughtPage() {
   const histories: History[] = await getHistory();
   const sortedList = histories.sort(
     (a: History, b: History) =>
-      new Date(a.purchased).getTime() - new Date(b.purchased).getTime()
+      new Date(a?.purchased).getTime() - new Date(b?.purchased).getTime()
   );
   const getItem = async () => {
     return await actions.getAllItem();
