@@ -1,7 +1,6 @@
 import * as historyAction from "@/lib/historyAction";
 import * as actions from "@/lib/action";
 import type { History, Item } from "@/types";
-import HistoryTable from "@/components/HistoryTable";
 import BoughtView from "@/components/BoughtView";
 
 //購入機会単位での履歴を表示
