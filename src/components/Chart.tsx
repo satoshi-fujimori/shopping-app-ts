@@ -47,8 +47,6 @@ export default function Chart({
         }}
       >
         <LineChart
-          //width={sortedList.length * 50}
-          //height={300}
           data={sortedList}
           margin={{
             top: 5,
