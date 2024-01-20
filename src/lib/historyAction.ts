@@ -10,7 +10,7 @@ export const addHistory = async (item: Item) => {
     amount,
     price,
     itemId,
-    purchased: purchased.toISOString(),
+    purchased: purchased.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }),
     unitPrice: Math.floor(price / amount),
   };
   //特にリターンしない

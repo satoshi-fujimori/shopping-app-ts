@@ -23,7 +23,9 @@ body {
     rgb(var(--background-start-rgb)),
     rgb(var(--background-end-rgb))
   );
-  background-size: 100% 100vh; /* 追加された行 */
+  /*background-size: 100% 100vh;*/ /* 追加された行 */
+  background-size: cover;
+  background-attachment: fixed;
   background-repeat: no-repeat; /* 追加された行 */
 
   /*rgb(var(--background-start-rgb));*/
