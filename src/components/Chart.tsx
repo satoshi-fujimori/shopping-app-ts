@@ -37,7 +37,7 @@ export default function Chart({
 
   return (
     <div className="p-2 m-2 overflow-x-auto">
-      <p className="m-2 p-2 text-xl">"{YaxisKey}"Chart</p>
+      <p className="m-2 p-2 text-xl">{YaxisKey}Chart</p>
       <ResponsiveContainer
         width="100%"
         height={200}
