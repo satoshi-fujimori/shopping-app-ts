@@ -36,7 +36,7 @@ export default function Chart({
   const yAxisDomain = [minDataValue, maxDataValue];
 
   return (
-    <div className="p-2 m-2 overflow-x-auto">
+    <div className="p-2 m-2 overflow-auto">
       <p className="m-2 p-2 text-xl">Chart</p>
       <ResponsiveContainer
         width="100%"
