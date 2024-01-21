@@ -12,7 +12,7 @@ export default function BoughtView({
   items: Item[];
 }) {
   const [selectedHistoryDate, setSelectedHisotryDate] = useState<string>(
-    sortedList[0].purchased
+    sortedList[0]?.purchased
   );
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedHisotryDate(e.target.value);
