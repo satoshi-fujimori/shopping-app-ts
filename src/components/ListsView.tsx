@@ -6,16 +6,20 @@ import type { Item } from "@/types";
 import * as actions from "@/lib/action";
 import AddFormPortal from "./AddFormPortal";
 import ItemList from "./ItemList";
+import SnackBar from "./SnackBar";
 
 export const MyContext = createContext({
   onChange: (id: number, fieldName: string, value: number | string) => {},
   updateList: (item: Item) => {},
   deleteListItem: (id: number) => {},
+  showBar: (type: string) => {},
 });
 
 export default function ListsView({ items }: { items: Item[] }) {
   const [itemList, setItemList] = useState<Item[]>(items);
   const [isBoughtListShow, setIsBoughtListShow] = useState<boolean>(false);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
+  const [typeOfShowBar, setTypeOfShowBar] = useState<string>("");
   const onChange = (id: number, fieldName: string, value: number | string) => {
     const newList: Item[] = itemList.map((item) => {
       if (item.id === id) {
@@ -35,7 +39,10 @@ export default function ListsView({ items }: { items: Item[] }) {
     setItemList(newList);
   };
   const updateAllItem = async () => {
+    setIsUpdating(true);
     await actions.updateItem(itemList);
+    setIsUpdating(false);
+    showBar("update");
   };
   const updateList = (item: Item) => {
     setItemList([...itemList, item]);
@@ -44,12 +51,19 @@ export default function ListsView({ items }: { items: Item[] }) {
     await actions.deleteItem(id);
     setItemList(itemList.filter((item) => item.id !== id));
   };
+  const showBar = (type: string) => {
+    setTypeOfShowBar(type);
+    setTimeout(() => {
+      setTypeOfShowBar("");
+    }, 5000);
+  };
 
   //context
   const config = {
     onChange: onChange,
     updateList: updateList,
     deleteListItem: deleteListItem,
+    showBar: showBar,
   };
 
   return (
@@ -64,9 +78,15 @@ export default function ListsView({ items }: { items: Item[] }) {
           <button
             type="button"
             onClick={updateAllItem}
-            className="m-2 p-2 bg-blue-500 text-white rounded ml-auto"
+            disabled={isUpdating}
+            //className="m-2 p-2 bg-blue-500 text-white rounded ml-auto"
+            className={`m-2 p-2 rounded ml-auto ${
+              isUpdating
+                ? "bg-gray-500 text-white cursor-not-allowed"
+                : "bg-blue-500 text-white cursor-pointer"
+            }`}
           >
-            更新
+            {isUpdating ? "更新中..." : "更新"}
           </button>
           <hr className="border-gray-700" />
         </div>
@@ -77,6 +97,7 @@ export default function ListsView({ items }: { items: Item[] }) {
           </button>
         </div>
         {isBoughtListShow && <ItemList itemList={itemList} status={true} />}
+        {typeOfShowBar && <SnackBar type={typeOfShowBar} />}
       </div>
     </MyContext.Provider>
   );

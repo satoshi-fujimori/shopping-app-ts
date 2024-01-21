@@ -1,6 +1,6 @@
 import type { Item } from "@/types";
 import { MyContext } from "./ListsView";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 export default function ItemComp({
   item,
@@ -9,7 +9,7 @@ export default function ItemComp({
   item: Item;
   color: string;
 }) {
-  const { onChange, deleteListItem } = useContext(MyContext);
+  const { onChange, deleteListItem, showBar } = useContext(MyContext);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName: string = e.target.name;
     const inputValue: string | null = e.target.value;
@@ -18,8 +18,9 @@ export default function ItemComp({
       : Number(inputValue);
     onChange(item.id, fieldName, value);
   };
-  const deleteItem = () => {
+  const deleteItem = async () => {
     deleteListItem(item.id);
+    showBar("delete");
   };
 
   return (

@@ -33,7 +33,7 @@ export default function ItemList({
     tags.forEach((tag) => {
       setTagVisibility((prev) => ({
         ...prev,
-        [tag]: !status, // Default visibility
+        [tag]: true, // Default visibility
       }));
     });
   }

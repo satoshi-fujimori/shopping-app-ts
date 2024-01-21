@@ -13,6 +13,7 @@ export default function AddForm({ handleShow }: { handleShow: () => void }) {
     unit: "",
   });
   const [isFocus, setIsFocus] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { updateList } = useContext(MyContext);
 
   useEffect(() => {
@@ -39,6 +40,7 @@ export default function AddForm({ handleShow }: { handleShow: () => void }) {
     setIsFocus(false);
   };
   const handleSubmit = async () => {
+    setIsSubmitting(true);
     const input: Input = {
       ...form,
       status: false,
@@ -52,6 +54,7 @@ export default function AddForm({ handleShow }: { handleShow: () => void }) {
     };
     updateList(newItem);
     handleShow();
+    setIsSubmitting(false);
   };
   return (
     <form action={handleSubmit}>
@@ -70,7 +73,7 @@ export default function AddForm({ handleShow }: { handleShow: () => void }) {
           name="tag"
           id="tag"
           onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
+          //onBlur={() => setIsFocus(false)}
           value={form.tag}
           onChange={handleChange}
         />
@@ -93,9 +96,17 @@ export default function AddForm({ handleShow }: { handleShow: () => void }) {
           value={form.unit}
           onChange={handleChange}
         />
-        <button type="submit" className="m-2 p-2 bg-blue-500 text-white">
-          追加
-        </button>
+        {!isSubmitting ? (
+          <button type="submit" className="m-2 p-2 bg-blue-500 text-white">
+            追加
+          </button>
+        ) : (
+          <button
+            type="submit"
+            disabled={true}
+            className="m-2 p-2 bg-blue-100 text-white"
+          ></button>
+        )}
       </div>
     </form>
   );
